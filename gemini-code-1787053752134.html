@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioLead — Milliy Ekologik Yetakchilik Platformasi</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased">
+
+    <!-- NAVIGATSIYA -->
+    <header class="bg-brand-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('home')">
+                    <div class="bg-brand-500 p-2 rounded-xl text-white shadow">
+                        <i class="fa-solid fa-leaf text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-black tracking-tight bg-gradient-to-r from-white to-brand-100 bg-clip-text text-transparent">BioLead</span>
+                </div>
+
+                <nav class="hidden md:flex space-x-1 lg:space-x-4 text-sm font-medium">
+                    <button onclick="showPage('home')" class="nav-btn px-3 py-2 rounded-lg hover:bg-brand-800 transition" data-target="home">Bosh sahifa</button>
+                    <button onclick="showPage('ambassadors')" class="nav-btn px-3 py-2 rounded-lg hover:bg-brand-800 transition" data-target="ambassadors">Elchilar</button>
+                    <button onclick="showPage('events')" class="nav-btn px-3 py-2 rounded-lg hover:bg-brand-800 transition" data-target="events">Tadbirlar</button>
+                    <button onclick="showPage('climate')" class="nav-btn px-3 py-2 rounded-lg hover:bg-brand-800 transition" data-target="climate">Statistika & Hisob-kitob</button>
+                    <button onclick="showPage('research')" class="nav-btn px-3 py-2 rounded-lg hover:bg-brand-800 transition" data-target="research">Tadqiqotlar</button>
+                </nav>
+
+                <div class="flex items-center space-x-3">
+                    <div id="authNavGuest" class="flex space-x-2">
+                        <button onclick="openModal('loginModal')" class="text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition">Kirish</button>
+                        <button onclick="openModal('registerModal')" class="text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-600 transition shadow">Ro'yxatdan o'tish</button>
+                    </div>
+                    <div id="authNavUser" class="hidden flex items-center space-x-3">
+                        <button onclick="showPage('dashboard')" class="flex items-center space-x-2 bg-brand-800 px-3 py-1.5 rounded-lg border border-brand-700 hover:bg-brand-700 transition">
+                            <i class="fa-solid fa-user-shield text-brand-300"></i>
+                            <span id="navUserName" class="text-sm font-medium">Abduraxmon</span>
+                        </button>
+                        <button onclick="logout()" class="text-xs text-red-300 hover:text-red-100" title="Chiqish"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ASOSIY KONTENT MAYDONI -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- 1. BOSH SAHIFA (HOME) -->
+        <section id="page-home" class="page-section space-y-12">
+            <div class="bg-gradient-to-br from-brand-900 via-brand-800 to-slate-900 rounded-3xl p-8 sm:p-14 text-white shadow-2xl relative overflow-hidden">
+                <div class="relative z-10 max-w-3xl space-y-6">
+                    <span class="px-3.5 py-1.5 rounded-full bg-brand-500/20 border border-brand-400/30 text-brand-300 text-xs font-bold uppercase tracking-wider">Milliy Yoshlar Tashabbusi</span>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight">Yashil Kelajakni Qurishda Texnologik Yetakchilik</h1>
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                        BioLead — yoshlarning ilmiy salohiyatini oshirish, ekologik ma'lumotlarni tahlil qilish, resurslarni tejash va respublika bo'ylab faol elchilar hamjamiyatini birlashtirish platformasi.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <button onclick="showPage('climate')" class="px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl shadow-lg transition flex items-center space-x-2">
+                            <span>Resurslarni Hisoblash</span>
+                            <i class="fa-solid fa-calculator"></i>
+                        </button>
+                        <button onclick="showPage('research')" class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl border border-white/20 transition flex items-center space-x-2">
+                            <span>Ilmiy Maqolalar & Taqdimotlar</span>
+                            <i class="fa-solid fa-file-powerpoint"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-brand-700 flex items-center justify-center text-xl"><i class="fa-solid fa-bullseye"></i></div>
+                    <h3 class="text-lg font-bold text-slate-900">Bosh Maqsad</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Yoshlarni ekologik tahliliy fikrlashga, ilmiy tadqiqotlar o'tkazishga va resurslardan ongli foydalanishga o'rgatish.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl"><i class="fa-solid fa-network-wired"></i></div>
+                    <h3 class="text-lg font-bold text-slate-900">Elchilar Tarmog'i</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">O'zbekistonning barcha viloyatlarida yoshlar yetakchilari (Ambassador) tizimini barpo etish va mintaqaviy aksiyalarni muvofiqlashtirish.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl"><i class="fa-solid fa-award"></i></div>
+                    <h3 class="text-lg font-bold text-slate-900">Rag'batlantirish</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">Eng yaxshi tadqiqotchi, eng faol debatchi va resurslarni tejashda yetakchi ishtirokchilarni doimiy mukofotlab borish.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. AMBASSADORLAR JADVALI -->
+        <section id="page-ambassadors" class="page-section hidden space-y-6">
+            <div>
+                <h2 class="text-2xl font-black text-slate-900">Hududiy Elchilar Tarmog'i</h2>
+                <p class="text-sm text-slate-500">Viloyatlar bo'yicha BioLead vakillari bilan bog'laning yoki mahalliy tadbirlarga qo'shiling</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 uppercase text-xs">
+                            <tr>
+                                <th class="py-3.5 px-4 font-bold">Viloyat / Hudud</th>
+                                <th class="py-3.5 px-4 font-bold">Elchi (Ambassador)</th>
+                                <th class="py-3.5 px-4 font-bold">Ta'lim Maskani / Mutaxassislik</th>
+                                <th class="py-3.5 px-4 font-bold">Aloqa (Telegram/Email)</th>
+                                <th class="py-3.5 px-4 font-bold text-right">Faol Loyihalar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ambassadorTableBody" class="divide-y divide-slate-100"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. TADBIRLAR VA EVENTLAR -->
+        <section id="page-events" class="page-section hidden space-y-6">
+            <div>
+                <h2 class="text-2xl font-black text-slate-900">Rejalashtirilgan Tadbirlar va Debatlar</h2>
+                <p class="text-sm text-slate-500">Viloyatlarda o'tkaziladigan ekologik seminarlar, intellektual bahslar va ilmiy konferensiyalar</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="eventsGrid"></div>
+        </section>
+
+        <!-- 4. IQLIM VA STATISTIKA / KALKULYATOR -->
+        <section id="page-climate" class="page-section hidden space-y-8">
+            <div>
+                <h2 class="text-2xl font-black text-slate-900">O'zbekiston Ekologik Resurslari & Shaxsiy Hisoblagich</h2>
+                <p class="text-sm text-slate-500">Mamlakat statistikasi va o'z hissangizni aniq raqamlarda ko'ring</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <span class="text-xs text-slate-400 uppercase font-bold">Yillik Suv Iste'moli</span>
+                    <h4 class="text-2xl font-black text-blue-600 mt-1">~50 mlrd m³</h4>
+                    <p class="text-xs text-slate-500 mt-1">Kishi boshiga: <b>~1,400 m³/yil</b></p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <span class="text-xs text-slate-400 uppercase font-bold">Elektr Ishlab Chiqarish</span>
+                    <h4 class="text-2xl font-black text-amber-500 mt-1">~75 mlrd kVt·soat</h4>
+                    <p class="text-xs text-slate-500 mt-1">Kishi boshiga: <b>~2,100 kVt·soat/yil</b></p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <span class="text-xs text-slate-400 uppercase font-bold">CO₂ Emissiyasi</span>
+                    <h4 class="text-2xl font-black text-rose-500 mt-1">~115 mln tonna</h4>
+                    <p class="text-xs text-slate-500 mt-1">Kishi boshiga: <b>~3.2 tonna/yil</b></p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <span class="text-xs text-slate-400 uppercase font-bold">Qattiq Maishiy Chiqindi</span>
+                    <h4 class="text-2xl font-black text-emerald-600 mt-1">~14 mln tonna</h4>
+                    <p class="text-xs text-slate-500 mt-1">Kishi boshiga: <b>~380 kg/yil</b></p>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+                        <i class="fa-solid fa-sliders text-brand-600"></i>
+                        <span>Shaxsiy Tejash Hisoblagichi</span>
+                    </h3>
+                    <p class="text-xs text-slate-500">Bugun tejagan yoki qayta ishlagan miqdoringizni kiriting va ballaringizni oshiring.</p>
+
+                    <div class="space-y-3">
+                        <div>
+                            <label class="text-xs font-semibold text-slate-700">Tejalgan Suv (litrda)</label>
+                            <input type="number" id="calcWater" class="w-full mt-1 px-3.5 py-2 rounded-lg border border-slate-200 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none" placeholder="50" value="0">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-slate-700">Tejalgan Elektr (kVt·soat)</label>
+                            <input type="number" id="calcEnergy" class="w-full mt-1 px-3.5 py-2 rounded-lg border border-slate-200 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none" placeholder="3" value="0">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-slate-700">Saralangan Qog'oz / Plastik (kg)</label>
+                            <input type="number" id="calcWaste" class="w-full mt-1 px-3.5 py-2 rounded-lg border border-slate-200 text-sm focus:ring-2 focus:ring-brand-500 focus:outline-none" placeholder="2" value="0">
+                        </div>
+                        <button onclick="calculateAndSaveImpact()" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow transition">Hisoblash & Profilga Qo'shish</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col justify-center text-center space-y-4">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Hisoblangan Natija</span>
+                    <div class="space-y-2">
+                        <div class="text-4xl font-black text-brand-600" id="calcResultPoints">0 Ball</div>
+                        <p class="text-xs text-slate-500">Kamaytirilgan CO₂ miqdori: <b id="calcResultCO2" class="text-slate-800">0.0 kg</b></p>
+                    </div>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Har bir tejalgan 10 litr suv = <b>2 ball</b> | 1 kVt elektr = <b>5 ball</b> | 1 kg saralangan chiqindi = <b>10 ball</b> beradi.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. TADQIQOTLAR VA MAQOLALAR PORTALI (PDF / PPTX / DOCX) -->
+        <section id="page-research" class="page-section hidden space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <h2 class="text-2xl font-black text-slate-900">Yoshlar Ilmiy Tadqiqotlari & Taqdimotlari</h2>
+                    <p class="text-sm text-slate-500">Ekologiya bo'yicha tayyorlangan PDF ilmiy maqolalar, PPTX taqdimotlar va loyihalar</p>
+                </div>
+                <button onclick="openArticleModal()" class="px-4 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-sm shadow transition flex items-center space-x-2">
+                    <i class="fa-solid fa-file-arrow-up text-base"></i>
+                    <span>Fayl Yuklash (PDF/PPTX)</span>
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="researchList"></div>
+        </section>
+
+        <!-- 6. SHAXSIY KABINET VA ADMIN PANELI -->
+        <section id="page-dashboard" class="page-section hidden space-y-8">
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div class="flex items-center space-x-4">
+                    <div class="w-16 h-16 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center text-3xl font-black" id="dashAvatar">A</div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <h2 class="text-xl font-bold text-slate-900" id="dashName">Abduraxmon (Loyiha Egasi)</h2>
+                            <span id="dashRoleBadge" class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-purple-100 text-purple-700 uppercase">Loyiha Egasi (Admin)</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-0.5" id="dashEmail">abdurahmonsokhibov94@gmail.com</p>
+                    </div>
+                </div>
+                <div class="text-left md:text-right bg-brand-50 p-4 rounded-2xl border border-brand-100">
+                    <span class="text-xs text-slate-500 font-bold uppercase">To'plangan Ballar</span>
+                    <div class="text-3xl font-black text-brand-700" id="dashPoints">999</div>
+                </div>
+            </div>
+
+            <!-- ADMIN BOSHQARUV MARKAZI -->
+            <div id="adminPanelBlock" class="space-y-6">
+                <div class="flex items-center space-x-3">
+                    <span class="p-2 bg-purple-100 text-purple-700 rounded-lg"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                    <h3 class="text-lg font-bold text-slate-900">Admin Boshqaruv Markazi</h3>
+                </div>
+
+                <!-- 3 ta boshqaruv formasi -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- 1. Yangi Admin Qo'shish -->
+                    <div class="bg-white p-6 rounded-2xl border border-purple-200 shadow-sm space-y-4">
+                        <div class="flex items-center space-x-2 text-purple-700 font-bold text-sm">
+                            <i class="fa-solid fa-user-shield text-base"></i>
+                            <span>Yangi Admin Qo'shish</span>
+                        </div>
+                        <form id="addAdminForm" class="space-y-3">
+                            <input type="text" id="newAdminName" placeholder="Admin Ismi va Familiyasi" required class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-purple-500">
+                            <input type="email" id="newAdminEmail" placeholder="Google Email" required class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-purple-500">
+                            <input type="text" id="newAdminUser" placeholder="Login (username)" required class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-purple-500">
+                            <input type="password" id="newAdminPass" placeholder="Parol" required class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-purple-500">
+                            <button type="submit" class="w-full py-2.5 bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs rounded-xl shadow">Admin Qo'shish</button>
+                        </form>
+                    </div>
+
+                    <!-- 2. Yangi Elchi Qo'shish -->
+                    <div class="bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm space-y-4">
+                        <div class="flex items-center space-x-2 text-brand-700 font-bold text-sm">
+                            <i class="fa-solid fa-user-plus text-base"></i>
+                            <span>Yangi Elchi (Ambassador)</span>
+                        </div>
+                        <form id="addAmbassadorForm" class="space-y-3">
+                            <input type="text" id="ambName" placeholder="Elchi Ismi" required class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-500">
+                            <input type="text" id="ambRegion" placeholder="Viloyat" required class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-500">
+                            <input type="text" id="ambSchool" placeholder="Ta'lim maskani" required class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-500">
+                            <input type="text" id="ambContact" placeholder="Telegram @username" required class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-500">
+                            <button type="submit" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs rounded-xl shadow">Elchini Saqlash</button>
+                        </form>
+                    </div>
+
+                    <!-- 3. Yangi Tadbir Qo'shish -->
+                    <div class="bg-white p-6 rounded-2xl border border-blue-200 shadow-sm space-y-4">
+                        <div class="flex items-center space-x-2 text-blue-700 font-bold text-sm">
+                            <i class="fa-solid fa-calendar-plus text-base"></i>
+                            <span>Yangi Tadbir E'lon Qilish</span>
+                        </div>
+                        <form id="addEventForm" class="space-y-3">
+                            <input type="text" id="evTitle" placeholder="Tadbir Nomi" required class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500">
+                            <input type="text" id="evRegion" placeholder="Viloyat" required class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500">
+                            <input type="date" id="evDate" required class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500">
+                            <textarea id="evDesc" placeholder="Qisqacha ma'lumot..." required class="w-full px-3.5 py-2 text-xs rounded-lg border border-slate-200 focus:ring-2 focus:ring-blue-500" rows="1"></textarea>
+                            <button type="submit" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow">Tadbirni E'lon Qilish</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TADBIRLARNI BOSHQARISH VA O'CHIRISH -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-slate-800 text-sm flex items-center space-x-2">
+                            <i class="fa-solid fa-calendar-xmark text-rose-500"></i>
+                            <span>Mavjud Tadbirlarni Boshqarish & O'chirish</span>
+                        </h4>
+                        <span class="text-xs text-slate-400">Jami tadbirlar: <b id="adminEventCountText" class="text-slate-700">0</b></span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-50 border-b border-slate-200 text-slate-500">
+                                <tr>
+                                    <th class="py-2.5 px-3">Tadbir Nomi</th>
+                                    <th class="py-2.5 px-3">Viloyat</th>
+                                    <th class="py-2.5 px-3">Sanasi</th>
+                                    <th class="py-2.5 px-3 text-right">Amal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminEventsListBody" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- MAQOLA VA TAQDIMOTLARNI BOSHQARISH (ADMIN) -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-slate-800 text-sm flex items-center space-x-2">
+                            <i class="fa-solid fa-book-bookmark text-amber-500"></i>
+                            <span>Yuklangan Barcha Fayllar & Maqolalar (Nazorat)</span>
+                        </h4>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-50 border-b border-slate-200 text-slate-500">
+                                <tr>
+                                    <th class="py-2.5 px-3">Sarlavha</th>
+                                    <th class="py-2.5 px-3">Muallif</th>
+                                    <th class="py-2.5 px-3">Fayl Formati</th>
+                                    <th class="py-2.5 px-3 text-right">Amal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminResearchListBody" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ADMINLAR RO'YXATI -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-slate-800 text-sm">Barcha Tayinlangan Adminlar</h4>
+                        <span class="text-xs text-slate-400">Jami adminlar: <b id="adminCountText" class="text-slate-700">1</b></span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-50 border-b border-slate-200 text-slate-500">
+                                <tr>
+                                    <th class="py-2.5 px-3">Ism</th>
+                                    <th class="py-2.5 px-3">Email</th>
+                                    <th class="py-2.5 px-3">Login</th>
+                                    <th class="py-2.5 px-3">Rol</th>
+                                    <th class="py-2.5 px-3 text-right">Amal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminListBody" class="divide-y divide-slate-100"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Foydalanuvchining Shaxsiy Fayllari -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <h4 class="font-bold text-slate-800 text-sm">Mening Yuklagan Ilmiy Fayllarim</h4>
+                <div id="userResearchList" class="text-xs text-slate-500">Hozircha yuklangan fayllar yo'q.</div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 text-center text-xs">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-bold text-slate-300">BioLead — Yoshlar Ekologik va Ilmiy Tashabbusi</p>
+            <p>© 2026 Barcha huquqlar himoyalangan. O'zbekiston bo'ylab yashil kelajak sari.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL: LOGIN -->
+    <div id="loginModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-black text-slate-900">Tizimga Kirish</h3>
+                <button onclick="closeModal('loginModal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="loginForm" class="space-y-3">
+                <div>
+                    <label class="text-xs font-semibold text-slate-700">Email yoki Username</label>
+                    <input type="text" id="loginUser" required class="w-full mt-1 px-3.5 py-2 rounded-lg border border-slate-200 text-sm" placeholder="admin yoki email...">
+                </div>
+                <div>
+                    <label class="text-xs font-semibold text-slate-700">Parol</label>
+                    <input type="password" id="loginPass" required class="w-full mt-1 px-3.5 py-2 rounded-lg border border-slate-200 text-sm">
+                </div>
+                <p class="text-[11px] text-slate-400">Bosh Admin: <b>admin</b> | Parol: <b>admin123</b></p>
+                <button type="submit" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-sm">Kirish</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: REGISTER -->
+    <div id="registerModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-black text-slate-900">Ro'yxatdan O'tish</h3>
+                <button onclick="closeModal('registerModal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="registerForm" class="space-y-3">
+                <div>
+                    <label class="text-xs font-semibold text-slate-700">To'liq Ismingiz</label>
+                    <input type="text" id="regName" required class="w-full mt-1 px-3.5 py-2 rounded-lg border border-slate-200 text-sm">
+                </div>
+                <div>
+                    <label class="text-xs font-semibold text-slate-700">Google Email</label>
+                    <input type="email" id="regEmail" required class="w-full mt-1 px-3.5 py-2 rounded-lg border border-slate-200 text-sm">
+                </div>
+                <div>
+                    <label class="text-xs font-semibold text-slate-700">Viloyat</label>
+                    <input type="text" id="regRegion" placeholder="Buxoro" required class="w-full mt-1 px-3.5 py-2 rounded-lg border border-slate-200 text-sm">
+                </div>
+                <div>
+                    <label class="text-xs font-semibold text-slate-700">Parol</label>
+                    <input type="password" id="regPass" required class="w-full mt-1 px-3.5 py-2 rounded-lg border border-slate-200 text-sm">
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-sm">Akkaunt Yaratish</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: TAYYOR FAYL YUKLASH (PDF / PPTX / DOCX) -->
+    <div id="articleModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-black text-slate-900">Ilmiy Fayl Yuklash</h3>
+                <button onclick="closeModal('articleModal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="articleForm" class="space-y-4">
+                <div>
+                    <label class="text-xs font-semibold text-slate-700">Mavzu / Tadqiqot Sarlavhasi</label>
+                    <input type="text" id="artTitle" required placeholder="Masalan: Orolbo'yi ekologiyasi taqdimoti" class="w-full mt-1 px-3.5 py-2 rounded-lg border border-slate-200 text-sm">
+                </div>
+                <div>
+                    <label class="text-xs font-semibold text-slate-700">Qisqacha mazmun (Annotatsiya / Tavsif)</label>
+                    <textarea id="artSummary" rows="3" required placeholder="Fayl mazmuni, o'rganilgan masalalar va asosiy fikrlar..." class="w-full mt-1 px-3.5 py-2 rounded-lg border border-slate-200 text-sm"></textarea>
+                </div>
+                <div>
+                    <label class="text-xs font-semibold text-slate-700">Faylni Tanlang (.pdf, .pptx, .ppt, .docx)</label>
+                    <input type="file" id="artFileInput" required accept=".pdf, .pptx, .ppt, .docx, .doc" class="w-full mt-1 px-3 py-2 border border-slate-200 rounded-lg text-xs bg-slate-50 cursor-pointer">
+                    <p class="text-[11px] text-slate-400 mt-1">Hajmi 5MB gacha bo'lgan PDF taqdimot yoki hujjatlarni to'g'ridan-to‘g‘ri yuklang.</p>
+                </div>
+                <button type="submit" id="artSubmitBtn" class="w-full py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-sm shadow flex justify-center items-center space-x-2">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span>Tadqiqotni Yuklash (+20 Ball)</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const initData = () => {
+            const mainAdmin = {
+                name: "Abduraxmon (Loyiha Egasi)",
+                email: "abdurahmonsokhibov94@gmail.com",
+                username: "admin",
+                pass: "admin123",
+                isOwner: true
+            };
+
+            let admins = JSON.parse(localStorage.getItem('biolead_admins')) || [];
+            if (admins.length === 0 || !admins.some(a => a.username === 'admin')) {
+                admins = [mainAdmin];
+                localStorage.setItem('biolead_admins', JSON.stringify(admins));
+            }
+
+            if (!localStorage.getItem('biolead_ambassadors')) {
+                const ambassadors = [
+                    { name: "Sardor Rahimov", region: "Toshkent shahri", school: "Toshkent Prezident Maktabi", contact: "@sardor_lead", projects: 4 },
+                    { name: "Abduraxmon", region: "Buxoro viloyati", school: "BioLead Asoschisi", contact: "@biolead_admin", projects: 6 },
+                    { name: "Nodira Olimova", region: "Samarqand viloyati", school: "SamDU qoshidagi litsey", contact: "@nodira_eco", projects: 3 },
+                    { name: "Javohir Ergashev", region: "Farg'ona viloyati", school: "1-IDUM", contact: "@j_ergashev", projects: 2 }
+                ];
+                localStorage.setItem('biolead_ambassadors', JSON.stringify(ambassadors));
+            }
+
+            if (!localStorage.getItem('biolead_events')) {
+                const events = [
+                    { title: "Respublika Yoshlar Eco-Debati 2026", region: "Buxoro", date: "2026-09-15", desc: "Suv resurslaridan samarali foydalanish bo'yicha mintaqaviy bahs va loyihalar taqdimoti." },
+                    { title: "Raqamli Ekologiya va Sun'iy Intellekt Vorkshopi", region: "Toshkent", date: "2026-10-05", desc: "Sun'iy yo'ldosh ma'lumotlari orqali iqlim o'zgarishini modellashtirish amaliyoti." }
+                ];
+                localStorage.setItem('biolead_events', JSON.stringify(events));
+            }
+
+            if (!localStorage.getItem('biolead_research')) {
+                const research = [
+                    { 
+                        title: "O'zbekiston viloyatlarida suv sarfi tahlili va IoT modellari", 
+                        author: "Abduraxmon", 
+                        summary: "O'zbekiston hududlarida suv resurslarini 30% tejashga qaratilgan sensorli sug'orish tizimi taqdimoti.", 
+                        fileName: "suv_resurslari_tadqiqot.pdf",
+                        fileType: "pdf",
+                        fileData: null 
+                    }
+                ];
+                localStorage.setItem('biolead_research', JSON.stringify(research));
+            }
+        };
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById('page-' + pageId);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.getAttribute('data-target') === pageId) {
+                    btn.classList.add('bg-brand-800', 'text-white');
+                } else {
+                    btn.classList.remove('bg-brand-800', 'text-white');
+                }
+            });
+
+            if (pageId === 'ambassadors') renderAmbassadors();
+            if (pageId === 'events') renderEvents();
+            if (pageId === 'research') renderResearch();
+            if (pageId === 'dashboard') renderDashboard();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        function renderAmbassadors() {
+            const list = JSON.parse(localStorage.getItem('biolead_ambassadors')) || [];
+            const tbody = document.getElementById('ambassadorTableBody');
+            tbody.innerHTML = list.map(item => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="py-3.5 px-4 font-bold text-brand-800"><i class="fa-solid fa-location-dot mr-1.5 text-brand-500"></i>${item.region}</td>
+                    <td class="py-3.5 px-4 font-semibold text-slate-800">${item.name}</td>
+                    <td class="py-3.5 px-4 text-slate-500">${item.school}</td>
+                    <td class="py-3.5 px-4 text-brand-600 font-mono">${item.contact}</td>
+                    <td class="py-3.5 px-4 text-right font-bold text-slate-700">${item.projects} ta</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderEvents() {
+            const list = JSON.parse(localStorage.getItem('biolead_events')) || [];
+            const grid = document.getElementById('eventsGrid');
+            if (list.length === 0) {
+                grid.innerHTML = `<div class="col-span-3 text-center py-8 text-slate-400 text-sm">Hozircha rejalashtirilgan tadbirlar mavjud emas.</div>`;
+                return;
+            }
+            grid.innerHTML = list.map(item => `
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-50 text-brand-700 border border-brand-200">${item.region}</span>
+                            <span class="text-xs text-slate-400 font-semibold"><i class="fa-regular fa-calendar mr-1"></i>${item.date}</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base">${item.title}</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">${item.desc}</p>
+                    </div>
+                    <button class="w-full py-2 bg-slate-100 hover:bg-brand-600 hover:text-white text-slate-700 text-xs font-bold rounded-xl transition">Ishtirok Etish</button>
+                </div>
+            `).join('');
+        }
+
+        // Formatga mos rang va belgi olish
+        function getFormatBadge(fileName) {
+            const ext = (fileName || '').split('.').pop().toLowerCase();
+            if (ext === 'pdf') {
+                return `<span class="px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200 font-bold text-[10px] flex items-center space-x-1"><i class="fa-solid fa-file-pdf"></i><span>PDF Hujjat</span></span>`;
+            } else if (ext === 'pptx' || ext === 'ppt') {
+                return `<span class="px-2 py-0.5 rounded bg-orange-50 text-orange-700 border border-orange-200 font-bold text-[10px] flex items-center space-x-1"><i class="fa-solid fa-file-powerpoint"></i><span>PPTX Taqdimot</span></span>`;
+            } else if (ext === 'docx' || ext === 'doc') {
+                return `<span class="px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-bold text-[10px] flex items-center space-x-1"><i class="fa-solid fa-file-word"></i><span>Word Hujjat</span></span>`;
+            }
+            return `<span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[10px]"><i class="fa-solid fa-file"></i> Hujjat</span>`;
+        }
+
+        // Research Ro'yxatini chiqarish
+        function renderResearch() {
+            const list = JSON.parse(localStorage.getItem('biolead_research')) || [];
+            const container = document.getElementById('researchList');
+            if (list.length === 0) {
+                container.innerHTML = `<div class="col-span-2 text-center py-8 text-slate-400 text-sm">Hozircha yuklangan ilmiy ishlar yo'q.</div>`;
+                return;
+            }
+            container.innerHTML = list.map((item, idx) => `
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4 flex flex-col justify-between hover:shadow-md transition">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            ${getFormatBadge(item.fileName)}
+                            <span class="text-[11px] text-slate-400 font-mono truncate max-w-[150px]">${item.fileName || 'fayl'}</span>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 leading-snug">${item.title}</h3>
+                        <p class="text-xs text-slate-400">Tadqiqotchi / Muallif: <b class="text-slate-700">${item.author}</b></p>
+                        <p class="text-xs text-slate-600 leading-relaxed line-clamp-3">${item.summary}</p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100">
+                        <button onclick="downloadOrOpenFile(${idx})" class="w-full py-2 bg-emerald-50 hover:bg-brand-600 text-brand-700 hover:text-white rounded-xl text-xs font-bold flex items-center justify-center space-x-2 transition border border-emerald-200 hover:border-transparent">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Faylni Yuklab Olish / O'qish</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Faylni ochish yoki yuklab olish funksiyasi
+        function downloadOrOpenFile(idx) {
+            const list = JSON.parse(localStorage.getItem('biolead_research')) || [];
+            const item = list[idx];
+            if (!item) return;
+
+            if (item.fileData) {
+                // Agar fayl kiritilgan bo'lsa
+                const a = document.createElement('a');
+                a.href = item.fileData;
+                a.download = item.fileName || 'tadqiqot_fayli';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                alert(`"${item.title}" fayli tayyor holatda.`);
+            }
+        }
+
+        let currentUser = JSON.parse(localStorage.getItem('biolead_currentUser')) || {
+            name: "Abduraxmon (Loyiha Egasi)",
+            email: "abdurahmonsokhibov94@gmail.com",
+            role: "admin",
+            isOwner: true,
+            points: 999
+        };
+
+        function updateAuthUI() {
+            const guestNav = document.getElementById('authNavGuest');
+            const userNav = document.getElementById('authNavUser');
+            if (currentUser) {
+                guestNav.classList.add('hidden');
+                userNav.classList.remove('hidden');
+                document.getElementById('navUserName').textContent = currentUser.name.split(' ')[0];
+            } else {
+                guestNav.classList.remove('hidden');
+                userNav.classList.add('hidden');
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('loginUser').value.trim();
+            const pass = document.getElementById('loginPass').value.trim();
+
+            const admins = JSON.parse(localStorage.getItem('biolead_admins')) || [];
+            const foundAdmin = admins.find(a => (a.username === user || a.email === user) && a.pass === pass);
+
+            if (foundAdmin) {
+                currentUser = { 
+                    name: foundAdmin.name, 
+                    email: foundAdmin.email || "abdurahmonsokhibov94@gmail.com", 
+                    role: "admin", 
+                    isOwner: !!foundAdmin.isOwner,
+                    points: 999 
+                };
+            } else {
+                currentUser = { name: user, email: user.includes('@') ? user : user + "@gmail.com", role: "user", points: 25 };
+            }
+
+            localStorage.setItem('biolead_currentUser', JSON.stringify(currentUser));
+            closeModal('loginModal');
+            updateAuthUI();
+            showPage('dashboard');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newUser = {
+                name: document.getElementById('regName').value.trim(),
+                email: document.getElementById('regEmail').value.trim(),
+                region: document.getElementById('regRegion').value.trim(),
+                role: 'user',
+                points: 0
+            };
+            localStorage.setItem('biolead_currentUser', JSON.stringify(newUser));
+            currentUser = newUser;
+            closeModal('registerModal');
+            updateAuthUI();
+            showPage('dashboard');
+        });
+
+        function logout() {
+            localStorage.removeItem('biolead_currentUser');
+            currentUser = null;
+            updateAuthUI();
+            showPage('home');
+        }
+
+        function renderDashboard() {
+            if (!currentUser) {
+                showPage('home');
+                openModal('loginModal');
+                return;
+            }
+            document.getElementById('dashName').textContent = currentUser.name;
+            document.getElementById('dashEmail').textContent = currentUser.email;
+            document.getElementById('dashAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+            document.getElementById('dashPoints').textContent = currentUser.points;
+
+            const badge = document.getElementById('dashRoleBadge');
+            const adminBlock = document.getElementById('adminPanelBlock');
+
+            if (currentUser.role === 'admin') {
+                badge.textContent = currentUser.isOwner ? "Loyiha Egasi (Bosh Admin)" : "Admin";
+                badge.className = "text-xs px-2.5 py-0.5 rounded-full font-bold bg-purple-100 text-purple-700 uppercase";
+                adminBlock.classList.remove('hidden');
+                renderAdminList();
+                renderAdminEventsList();
+                renderAdminResearchList();
+            } else {
+                badge.textContent = "Ishtirokchi";
+                badge.className = "text-xs px-2.5 py-0.5 rounded-full font-bold bg-brand-100 text-brand-700 uppercase";
+                adminBlock.classList.add('hidden');
+            }
+        }
+
+        function renderAdminList() {
+            const admins = JSON.parse(localStorage.getItem('biolead_admins')) || [];
+            document.getElementById('adminCountText').textContent = admins.length;
+            const tbody = document.getElementById('adminListBody');
+            
+            tbody.innerHTML = admins.map((a, index) => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="py-2.5 px-3 font-semibold text-slate-800">${a.name}</td>
+                    <td class="py-2.5 px-3 text-slate-500 font-mono text-[11px]">${a.email || 'abdurahmonsokhibov94@gmail.com'}</td>
+                    <td class="py-2.5 px-3 font-mono text-purple-600">${a.username}</td>
+                    <td class="py-2.5 px-3">
+                        <span class="px-2 py-0.5 rounded text-[11px] font-bold ${a.isOwner ? 'bg-purple-100 text-purple-800' : 'bg-slate-100 text-slate-700'}">
+                            ${a.isOwner ? 'Bosh Admin' : 'Admin'}
+                        </span>
+                    </td>
+                    <td class="py-2.5 px-3 text-right">
+                        ${!a.isOwner ? `<button onclick="deleteAdmin(${index})" class="text-rose-500 hover:text-rose-700 font-bold text-xs"><i class="fa-solid fa-trash-can mr-1"></i>O'chirish</button>` : '<span class="text-slate-400 text-[11px]">Asoschi</span>'}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderAdminEventsList() {
+            const list = JSON.parse(localStorage.getItem('biolead_events')) || [];
+            document.getElementById('adminEventCountText').textContent = list.length;
+            const tbody = document.getElementById('adminEventsListBody');
+
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-3 text-slate-400">Hech qanday tadbir yo'q.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = list.map((ev, index) => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="py-2.5 px-3 font-semibold text-slate-800">${ev.title}</td>
+                    <td class="py-2.5 px-3 text-slate-600"><span class="px-2 py-0.5 bg-slate-100 rounded text-[11px]">${ev.region}</span></td>
+                    <td class="py-2.5 px-3 text-slate-500 font-mono text-[11px]">${ev.date}</td>
+                    <td class="py-2.5 px-3 text-right">
+                        <button onclick="deleteEvent(${index})" class="text-rose-500 hover:text-rose-700 font-bold text-xs">
+                            <i class="fa-solid fa-trash-can mr-1"></i>O'chirish
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderAdminResearchList() {
+            const list = JSON.parse(localStorage.getItem('biolead_research')) || [];
+            const tbody = document.getElementById('adminResearchListBody');
+
+            if (list.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-3 text-slate-400">Yuklangan fayl yo'q.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = list.map((r, index) => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="py-2.5 px-3 font-semibold text-slate-800">${r.title}</td>
+                    <td class="py-2.5 px-3 text-slate-600">${r.author}</td>
+                    <td class="py-2.5 px-3 font-mono text-emerald-600 text-[11px]">${r.fileName || 'Fayl'}</td>
+                    <td class="py-2.5 px-3 text-right">
+                        <button onclick="deleteResearch(${index})" class="text-rose-500 hover:text-rose-700 font-bold text-xs">
+                            <i class="fa-solid fa-trash-can mr-1"></i>O'chirish
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function deleteResearch(index) {
+            const list = JSON.parse(localStorage.getItem('biolead_research')) || [];
+            if (confirm(`"${list[index].title}" faylini o'chirishni tasdiqlaysizmi?`)) {
+                list.splice(index, 1);
+                localStorage.setItem('biolead_research', JSON.stringify(list));
+                renderAdminResearchList();
+                renderResearch();
+            }
+        }
+
+        function deleteEvent(index) {
+            const list = JSON.parse(localStorage.getItem('biolead_events')) || [];
+            if (confirm(`"${list[index].title}" tadbirini o'chirishni tasdiqlaysizmi?`)) {
+                list.splice(index, 1);
+                localStorage.setItem('biolead_events', JSON.stringify(list));
+                renderAdminEventsList();
+                renderEvents();
+            }
+        }
+
+        document.getElementById('addAdminForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const admins = JSON.parse(localStorage.getItem('biolead_admins')) || [];
+            const username = document.getElementById('newAdminUser').value.trim();
+            const email = document.getElementById('newAdminEmail').value.trim();
+
+            if (admins.some(a => a.username.toLowerCase() === username.toLowerCase())) {
+                alert("Bunday login mavjud! Boshqa login tanlang.");
+                return;
+            }
+
+            const newAdmin = {
+                name: document.getElementById('newAdminName').value.trim(),
+                email: email,
+                username: username,
+                pass: document.getElementById('newAdminPass').value.trim(),
+                isOwner: false
+            };
+
+            admins.push(newAdmin);
+            localStorage.setItem('biolead_admins', JSON.stringify(admins));
+            alert(`Yangi admin (${newAdmin.name}) muvaffaqiyatli qo'shildi!`);
+            e.target.reset();
+            renderAdminList();
+        });
+
+        function deleteAdmin(index) {
+            const admins = JSON.parse(localStorage.getItem('biolead_admins')) || [];
+            if (confirm(`"${admins[index].name}" adminlikdan o'chirilsinmi?`)) {
+                admins.splice(index, 1);
+                localStorage.setItem('biolead_admins', JSON.stringify(admins));
+                renderAdminList();
+            }
+        }
+
+        document.getElementById('addAmbassadorForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const list = JSON.parse(localStorage.getItem('biolead_ambassadors')) || [];
+            list.push({
+                name: document.getElementById('ambName').value,
+                region: document.getElementById('ambRegion').value,
+                school: document.getElementById('ambSchool').value,
+                contact: document.getElementById('ambContact').value,
+                projects: 1
+            });
+            localStorage.setItem('biolead_ambassadors', JSON.stringify(list));
+            alert("Yangi elchi muvaffaqiyatli qo'shildi!");
+            e.target.reset();
+            renderAmbassadors();
+        });
+
+        document.getElementById('addEventForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const list = JSON.parse(localStorage.getItem('biolead_events')) || [];
+            list.push({
+                title: document.getElementById('evTitle').value,
+                region: document.getElementById('evRegion').value,
+                date: document.getElementById('evDate').value,
+                desc: document.getElementById('evDesc').value
+            });
+            localStorage.setItem('biolead_events', JSON.stringify(list));
+            alert("Yangi tadbir e'lon qilindi!");
+            e.target.reset();
+            renderAdminEventsList();
+            renderEvents();
+        });
+
+        function calculateAndSaveImpact() {
+            const water = parseFloat(document.getElementById('calcWater').value) || 0;
+            const energy = parseFloat(document.getElementById('calcEnergy').value) || 0;
+            const waste = parseFloat(document.getElementById('calcWaste').value) || 0;
+
+            const points = (water * 0.2) + (energy * 5) + (waste * 10);
+            const co2 = ((water * 0.001) + (energy * 0.5) + (waste * 0.3)).toFixed(1);
+
+            document.getElementById('calcResultPoints').textContent = `+${Math.round(points)} Ball`;
+            document.getElementById('calcResultCO2').textContent = `${co2} kg`;
+
+            if (currentUser) {
+                currentUser.points = (currentUser.points || 0) + Math.round(points);
+                localStorage.setItem('biolead_currentUser', JSON.stringify(currentUser));
+                updateAuthUI();
+                alert(`Ajoyib! Profilingizga ${Math.round(points)} ball qo'shildi!`);
+            } else {
+                alert("Ballarni saqlash uchun avval tizimga kiring.");
+            }
+        }
+
+        function openArticleModal() {
+            if (!currentUser) {
+                alert("Tadqiqot yuklash uchun avval tizimga kiring!");
+                openModal('loginModal');
+                return;
+            }
+            openModal('articleModal');
+        }
+
+        // FAYL YUKLASH (PDF / PPTX / DOCX)
+        document.getElementById('articleForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fileInput = document.getElementById('artFileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Iltimos, faylni tanlang!");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const base64Data = event.target.result;
+                const list = JSON.parse(localStorage.getItem('biolead_research')) || [];
+                
+                list.unshift({
+                    title: document.getElementById('artTitle').value,
+                    author: currentUser.name,
+                    summary: document.getElementById('artSummary').value,
+                    fileName: file.name,
+                    fileData: base64Data
+                });
+
+                localStorage.setItem('biolead_research', JSON.stringify(list));
+                
+                currentUser.points = (currentUser.points || 0) + 20;
+                localStorage.setItem('biolead_currentUser', JSON.stringify(currentUser));
+                updateAuthUI();
+
+                closeModal('articleModal');
+                alert(`"${file.name}" faylingiz muvaffaqiyatli yuklandi va sizga +20 ball berildi!`);
+                e.target.reset();
+                renderResearch();
+            };
+            reader.readAsDataURL(file);
+        });
+
+        initData();
+        updateAuthUI();
+    </script>
+</body>
+</html>
